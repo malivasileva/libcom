@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Testing git</h1>
-</body>
-</html>
+{% extends 'main/layout.html' %}
+
+{% block title %} Индекс {% endblock %}
+
+{% block user-info %} {% include 'main/user-default.html' %} {% endblock %}
+
+{% block content %}
+    <p class="text-uppercase">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consequuntur debitis, dicta ducimus earum eos harum illo omnis, qui quos saepe tenetur ullam vitae. Commodi doloremque inventore necessitatibus officiis voluptas.
+    </p>
+<button id="popoverButton" type="button" class="btn btn-primary btn-lg" data-bs-toggle="popover" title="ESM in Browser" data-bs-content="Bang!">Custom popover</button>
+{% endblock %}
