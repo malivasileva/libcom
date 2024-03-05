@@ -24,23 +24,22 @@
                         <small class="form-text text-danger">{{ message }}</small>
                     {% endfor %}
 
-                    <!-- Login Tab action="{ url 'login' }" -->
+                    <!-- Login Tab -->
                     <div class="tab-pane fade show active" id="login-tab-pane" role="tabpanel" aria-labelledby="login-tab">
                         <form method="POST" >
+
                             {% csrf_token %}
-                            <br>
-                              <div class="mb-3 row">
-                                <label for="inputUsername" class="col-sm-2 col-form-label">Логин</label>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                            {% for f in form %}
+                            <div class="mb-3 row">
+                                <label for="{{ f.id_for_label }}" class="col-sm-2 col-form-label">{{ f.label }}</label>
                                 <div class="col-sm-10">
-                                  <input type="text" id="inputUsername" class="form-control">
+                                    {{ f }}
                                 </div>
+                                <div class="form-error">{{ f.errors }}</div>
                               </div>
-                              <div class="mb-3 row">
-                                <label for="inputPassword" class="col-sm-2 col-form-label">Пароль</label>
-                                <div class="col-sm-10">
-                                  <input type="password" class="form-control" id="inputPassword">
-                                </div>
-                              </div>
+                            {% endfor %}
+
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                               <input type="submit" value="Войти" class="btn btn-primary me-md-2">
                             </div>
@@ -52,32 +51,8 @@
                     <div class="tab-pane fade" id="signup-tab-pane" role="tabpanel" aria-labelledby="signup-tab">
                         <form method="POST" >
                             {% csrf_token %}
-                            <br>
-                            <input type="hidden" name="action" value="signup">
-                              <div class="mb-3 row">
-                                <label for="regFirstName" class="col-sm-2 col-form-label">Имя</label>
-                                <div class="col-sm-10">
-                                  <input type="text" id="regFirstName" name="regFirstName" class="form-control">
-                                </div>
-                              </div>
-                              <div class="mb-3 row">
-                                <label for="regUsername" class="col-sm-2 col-form-label">Логин</label>
-                                <div class="col-sm-10">
-                                  <input type="text" id="regUsername" name="regUsername" class="form-control">
-                                </div>
-                              </div>
-                              <div class="mb-3 row">
-                                <label for="password1" class="col-sm-2 col-form-label">Пароль</label>
-                                <div class="col-sm-10">
-                                  <input type="password" id="password1" name="password1" class="form-control">
-                                </div>
-                              </div>
-                              <div class="mb-3 row">
-                                <label for="password2" class="col-sm-2 col-form-label">Повторите пароль</label>
-                                <div class="col-sm-10">
-                                  <input type="password" id="password2" name="password2" class="form-control">
-                                </div>
-                              </div>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                            {{ form.as_p }}
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                               <input type="submit" value="Зарегистрироваться" class="btn btn-primary me-md-2">
                             </div>
