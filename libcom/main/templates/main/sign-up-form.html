@@ -1,0 +1,92 @@
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login/Registration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="login-tab" data-toggle="tab" href="#login-tab-pane" role="tab" aria-controls="login-tab-pane" aria-selected="true">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="signup-tab" data-toggle="tab" href="#signup-tab-pane" role="tab" aria-controls="signup-tab-pane" aria-selected="false">Sign Up</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+
+                    {% for message in messages %}
+                        <small class="form-text text-danger">{{ message }}</small>
+                    {% endfor %}
+
+                    <!-- Login Tab action="{ url 'login' }" -->
+                    <div class="tab-pane fade show active" id="login-tab-pane" role="tabpanel" aria-labelledby="login-tab">
+                        <form method="POST" >
+                            {% csrf_token %}
+                            <br>
+                              <div class="mb-3 row">
+                                <label for="inputUsername" class="col-sm-2 col-form-label">Логин</label>
+                                <div class="col-sm-10">
+                                  <input type="text" id="inputUsername" class="form-control">
+                                </div>
+                              </div>
+                              <div class="mb-3 row">
+                                <label for="inputPassword" class="col-sm-2 col-form-label">Пароль</label>
+                                <div class="col-sm-10">
+                                  <input type="password" class="form-control" id="inputPassword">
+                                </div>
+                              </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                              <input type="submit" value="Войти" class="btn btn-primary me-md-2">
+                            </div>
+                            <input type="hidden" name="action" value="login">
+                        </form>
+                    </div>
+
+                    <!-- Sign Up Tab action="{ url 'signup' }" -->
+                    <div class="tab-pane fade" id="signup-tab-pane" role="tabpanel" aria-labelledby="signup-tab">
+                        <form method="POST" >
+                            {% csrf_token %}
+                            <br>
+                            <input type="hidden" name="action" value="signup">
+                              <div class="mb-3 row">
+                                <label for="regFirstName" class="col-sm-2 col-form-label">Имя</label>
+                                <div class="col-sm-10">
+                                  <input type="text" id="regFirstName" name="regFirstName" class="form-control">
+                                </div>
+                              </div>
+                              <div class="mb-3 row">
+                                <label for="regUsername" class="col-sm-2 col-form-label">Логин</label>
+                                <div class="col-sm-10">
+                                  <input type="text" id="regUsername" name="regUsername" class="form-control">
+                                </div>
+                              </div>
+                              <div class="mb-3 row">
+                                <label for="password1" class="col-sm-2 col-form-label">Пароль</label>
+                                <div class="col-sm-10">
+                                  <input type="password" id="password1" name="password1" class="form-control">
+                                </div>
+                              </div>
+                              <div class="mb-3 row">
+                                <label for="password2" class="col-sm-2 col-form-label">Повторите пароль</label>
+                                <div class="col-sm-10">
+                                  <input type="password" id="password2" name="password2" class="form-control">
+                                </div>
+                              </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                              <input type="submit" value="Зарегистрироваться" class="btn btn-primary me-md-2">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

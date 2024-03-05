@@ -1,8 +1,16 @@
 {% extends 'main/layout.html' %}
 
-{% block title %} Индекс {% endblock %}
+{% block title %} Libcommend {% endblock %}
 
-{% block user-info %} {% include 'main/user-default.html' %} {% endblock %}
+{% block user-info %}
+    {% if user.is_authenticated %}
+        {% include 'main/user-info.html' %}
+    {% else %}
+        {% include 'main/user-default.html' %}
+    {% endif %}
+
+
+{% endblock %}
 
 {% block content %}
     <p class="text-uppercase">
