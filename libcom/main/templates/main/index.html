@@ -1,5 +1,5 @@
 {% extends 'main/layout.html' %}
-
+{% load static %}
 {% block title %} Libcommend {% endblock %}
 
 {% block user-info %}
@@ -13,8 +13,21 @@
 {% endblock %}
 
 {% block content %}
-    <p class="text-uppercase">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consequuntur debitis, dicta ducimus earum eos harum illo omnis, qui quos saepe tenetur ullam vitae. Commodi doloremque inventore necessitatibus officiis voluptas.
-    </p>
-<button id="popoverButton" type="button" class="btn btn-primary btn-lg" data-bs-toggle="popover" title="ESM in Browser" data-bs-content="Bang!">Custom popover</button>
+    <main class="book-main">
+        <div>
+          <h1>Приветственная надпись</h1>
+          <p class="lead">Описание проекта</p>
+            <div class="input-group book-search">
+                <form action="{% url 'search' %}" method="GET" class="input-group d-flex align-items-center">
+                    <input type="text" name="query" class="form-control" placeholder="Введите ваш запрос">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn user-btn">
+                            <img src="{% static 'images/Search.svg' %}" alt="Search" width="24" height="24">
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </main>
+<footer class="mt-auto text-white-50"></footer>
 {% endblock %}

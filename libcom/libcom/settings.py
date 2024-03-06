@@ -34,6 +34,8 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "127.0.0.1").split(" ")
 INSTALLED_APPS = [
     'main',
     'users',
+    'mybooks',
+    'search',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -135,3 +137,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+OPEN_LIBRARY_API_URL = 'https://openlibrary.org'
