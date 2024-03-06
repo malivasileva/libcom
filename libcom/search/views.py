@@ -6,19 +6,20 @@ def search_results_view(request, query):
     # Communicate with the Open Library API
     response = requests.get(f'{settings.OPEN_LIBRARY_API_URL}/search.json?q={query}')
     docs = response.json().get('docs', [])
-    #isbn_list = [doc.get('isbn', None) for doc in docs]
-    #sbn_list = [isbn for isbn in isbn_list if isbn is not None]
-
-    isbn_list = [isbn for doc in docs for isbn in doc.get('isbn', []) if isbn]
-
-    isbn_list = isbn_list[:100]
-
+    # , 'cover': ''
     books_info = []
+    for doc in docs:
+        book_info = {'title': '', 'authors': [], 'cover': ''}
+        isbn = doc.get('isbn', [])
+        book_info['authors'] = doc.get('author_name', [])
+        book_info['title'] = doc.get('title', '')
 
-    #for isbn in isbn_list:
-        # Make a request for each ISBN to obtain title and author information
-        #book_info = get_book_info(isbn)
-        #books_info.append(book_info)
+        if isbn:
+            book_info['cover'] = f'https://covers.openlibrary.org/b/isbn/{isbn[0]}-M.jpg'
+        else:
+            book_info['cover'] = '/static/images/no-cover.png'
+
+        books_info.append(book_info)
 
     return render(request, 'search/index.html', {'results': books_info})
 

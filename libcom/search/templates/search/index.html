@@ -1,13 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for r in results %}
-{{ r }}
-<br>
-{% endfor %}
-</body>
-</html>
+{% extends 'main/layout.html' %}
+
+{% block title %} Libcommend {% endblock %}
+{% load static %}
+{% block content %}
+
+<main class="search-main">
+        <div class="container">
+          <div class="search-block">
+            <div class="input-group book-search">
+              <input
+                type="text"
+                class="form-control"
+              />
+              <div class="input-group-append">
+                <a href="#"
+                  ><img
+                    src="{% static 'images/Search.svg' %}"
+                    alt="Search"
+                    width="34"
+                    height="34"
+                /></a>
+              </div>
+            </div>
+          </div>
+
+          {% for r in results %}
+
+          <div class="item-book">
+            <div class="main-book-content">
+              <img src="{{ r.cover }}" alt="Book" />
+              <div class="book-description">
+                <b>{{ r.title }}</b><br>
+                {{ r.authors|join:", " }}<br>
+              </div>
+              <img class="book-plus" src="{% static 'images/Plus.svg' %}" alt="Plus" />
+            </div>
+            <div class="book-btns">
+              <div>Хочу прочитать</div>
+              <div>Читаю сейчас</div>
+              <div class="add-review-btn" data-bs-toggle="modal" data-bs-target="#addReview">
+                Добавить оценку
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+
+        </div>
+      </main>
+
+{% endblock %}
