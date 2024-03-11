@@ -5,4 +5,5 @@ app_name = "mybooks"
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('save_rating/<str:isbn>/', views.save_rating, name='save_rating'),
     ]

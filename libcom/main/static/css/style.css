@@ -76,7 +76,6 @@
   display: flex;
   border-radius: 50px;
   margin-bottom: 20px;
-  align-items: center;
 }
 
 .main-book-content {
@@ -86,7 +85,7 @@
   background: var(--book-mega-soft-purple);
   align-items: center;
   justify-content: space-between;
-  min-width: 80%;
+  width: 80%;
 }
 
 .book-plus {
@@ -96,6 +95,10 @@
 
 .book-description {
   font-size: 30px;
+}
+
+.book-title {
+  font-weight: bold;
 }
 
 .search-main .user-btn {
@@ -139,7 +142,9 @@
 }
 
 .active-btns {
-  display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .active-item {

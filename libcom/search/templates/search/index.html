@@ -6,45 +6,60 @@
 
 <main class="search-main">
         <div class="container">
+            <form action="{% url 'search' %}" method="GET">
           <div class="search-block">
-            <div class="input-group book-search">
-              <input
-                type="text"
-                class="form-control"
-              />
-              <div class="input-group-append">
-                <a href="#"
-                  ><img
-                    src="{% static 'images/Search.svg' %}"
-                    alt="Search"
-                    width="34"
-                    height="34"
-                /></a>
-              </div>
-            </div>
-          </div>
 
-          {% for r in results %}
+
+                  <div class="input-group book-search">
+                      <input
+                              type="text"
+                              name="query"
+                              class="form-control"
+                      />
+                      <div class="input-group-append">
+                          <button type="submit"
+                          ><img
+                                  src="{% static 'images/Search.svg' %}"
+                                  alt="Search"
+                                  width="34"
+                                  height="34"
+                          /></button>
+                      </div>
+                  </div>
+
+          </div>
+</form>
+<div class="d-flex flex-wrap flex-column">
+  {% for r in results %}
 
           <div class="item-book">
-            <div class="main-book-content">
+            <div class="main-book-content gap-3">
               <img src="{{ r.cover }}" alt="Book" />
               <div class="book-description">
-                <b>{{ r.title }}</b><br>
-                {{ r.authors|join:", " }}<br>
+                <div class="book-title">{{ r.title }}<br></div>
+                <div class="book-authors">{{ r.authors|join:", " }}<br></div>
               </div>
               <img class="book-plus" src="{% static 'images/Plus.svg' %}" alt="Plus" />
             </div>
             <div class="book-btns">
               <div>Хочу прочитать</div>
               <div>Читаю сейчас</div>
-              <div class="add-review-btn" data-bs-toggle="modal" data-bs-target="#addReview">
+              <div class="add-review-btn" data-bs-toggle="modal" data-bs-target="#addReview-{{ r.isbn }}">
                 Добавить оценку
               </div>
             </div>
           </div>
 
+
+{% include 'mybooks/rating-form.html' %}
+
           {% endfor %}
+
+
+</div>
+
+
+
 
         </div>
       </main>
