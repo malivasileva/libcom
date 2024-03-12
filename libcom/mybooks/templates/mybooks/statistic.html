@@ -120,16 +120,27 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        console.log($('.all-authors-count'))
+        const validJSON = $('.all-authors-count').text().replace(/'/g, '"')
+        const objAuthors = JSON.parse(validJSON)
+        const total = Object.values(objAuthors).reduce((acc, curr) => acc + curr, 0)
+        const series = []
+        const labels = []
+
+        const result = {};
+        for (let author in objAuthors) {
+            let percentage = Math.round((objAuthors[author] / total) * 100)
+            series.push(percentage)
+            labels.push(author)
+        }
 
         if (document.querySelector("#chart")) {
         var options = {
-            series: [40, 40, 20],
+            series: series,
             chart: {
               width: 500,
               type: "pie",
             },
-            labels: ["Жанр 1", "Жанр 2", "Жанр 3"],
+            labels: labels,
             colors: ["#C2ACFF", "#8459FF", "#E0D6FF"],
             dataLabels: {
               enabled: false,
