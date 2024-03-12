@@ -12,7 +12,7 @@ class Rating(models.Model):
     review = models.TextField(null=True)
 
     def __str__(self):
-        return f"{self.user.username}: {self.isbn} - General: {self.general}"
+        return f"{self.user.username} - {self.isbn} - {self.general} - {self.plot} - {self.characters} - {self.style}"
 
 class Status(models.Model):
     status = models.CharField(max_length=50)

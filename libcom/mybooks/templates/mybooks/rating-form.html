@@ -5,9 +5,7 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-  >
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <button
@@ -18,20 +16,20 @@
         ></button>
       </div>
 
-      <form class="row g-3" method="post" action="{% url 'mybooks:save_rating' r.isbn %}">
-
-      <div class="modal-body">
-        <div
-          class="d-flex align-items-center mb-3 justify-content-center"
-        >
-          <img src="{{ r.cover }}" alt="Book" />
-        </div>
-
+      <!-- <form
+        class="row g-3"
+        id="rating-form"
+        data-action="{% url 'mybooks:save_rating' r.isbn %}"
+      > -->
+        <div class="modal-body">
+          <div class="d-flex align-items-center mb-3 justify-content-center">
+            <img src="{{ r.cover }}" alt="Book" />
+          </div>
 
           {% csrf_token %}
           <div class="rate mt-3">
             <div class="label-rate">Общая оценка</div>
-            <div class="rating">
+            <div class="rating general-rating">
               <input
                 type="radio"
                 name="general"
@@ -67,7 +65,7 @@
 
           <div class="rate mt-3">
             <div class="label-rate">Сюжет</div>
-            <div class="rating">
+            <div class="rating plot-rating">
               <input
                 type="radio"
                 name="plot"
@@ -103,7 +101,7 @@
 
           <div class="rate mt-3">
             <div class="label-rate">Персонажи</div>
-            <div class="rating">
+            <div class="rating characters-rating">
               <input
                 type="radio"
                 name="characters"
@@ -139,7 +137,7 @@
 
           <div class="rate mt-3">
             <div class="label-rate">Слог</div>
-            <div class="rating">
+            <div class="rating style-rating">
               <input
                 type="radio"
                 name="style"
@@ -182,14 +180,11 @@
               rows="5"
             ></textarea>
           </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn user-btn">Сохранить</button>
-      </div>
-
-      </form>
-
+        </div>
+        <div class="modal-footer">
+          <a data-action="{% url 'mybooks:save_rating' r.isbn %}" class="btn user-btn save-rating">Сохранить</a>
+        </div>
+      <!-- </form> -->
     </div>
-    </div>
+  </div>
 </div>
