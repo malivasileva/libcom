@@ -73,7 +73,7 @@ def statistic(request):
 
         authors = jsonResponse.get('authors', '')
         if (authors):
-            author = requests.get(f'{settings.OPEN_LIBRARY_API_URL}{authors[0]['key']}.json')
+            author = requests.get(f"{settings.OPEN_LIBRARY_API_URL}{authors[0]['key']}.json")
             jsonAuthor = author.json()
             authorName = jsonAuthor.get('name', '')
         book_info['author_name'] = authorName
