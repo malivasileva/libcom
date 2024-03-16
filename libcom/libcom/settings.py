@@ -88,7 +88,7 @@ DATABASES = {
     }
 }
 
-database_url = os.environ.get("DATABASE_URL","postgres://test_ia0h_user:XzCTiT9I5hvurgHgVzFa3y7H3yL6BFF1@dpg-clsuvkdcm5oc739coqr0-a.frankfurt-postgres.render.com/test_ia0h")
+database_url = os.environ.get("DATABASE_URL","postgres://libcomdb_user:0gnQqAhS9v5roeidSN4sFRMG4Z4354Lf@dpg-cnqofhi1hbls73drvvlg-a.frankfurt-postgres.render.com/libcomdb")
 DATABASES["default"] = dj_database_url.parse(database_url)
 
 # Password validation
@@ -139,3 +139,4 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 OPEN_LIBRARY_API_URL = 'https://openlibrary.org'
+GOOGLE_BOOKS_SEARCH = 'https://www.googleapis.com/books/v1/volumes?'
