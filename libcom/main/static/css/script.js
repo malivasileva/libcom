@@ -161,6 +161,47 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     })
 
+    $('.statistic-btn').on('click', function(event) {
+        const modal = $(this).parent().parent()
+
+        const start = modal.find('#datepicker').val()
+        const end = modal.find('#datepickerTo').val()
+
+        const formData = new FormData()
+        formData.append('start', start)
+        formData.append('end', end)
+
+
+        $.ajax({
+            type: 'POST',
+            url: $(this).data('action'), // Use the form's action attribute as URL
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function(xhr, settings) {
+                // Get CSRF token from cookies
+                var csrftoken = getCookie('csrftoken');
+
+                // Set CSRF token in request headers
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            },
+            success: function(response) {
+//                $(modal).find('.save-rating').show()
+//                $(modal).find('.spinner-border').remove()
+//                $(modal).find('.btn-close').click()
+//
+//                $('.alert-complete').find('.text-alert-input').text('Оценка успешно добавлена')
+//                $('.alert-complete').css('display', 'flex')
+//                $('.alert-complete').show('slow')
+//                setTimeout(() => {  $('.alert-complete').hide('slow') }, 2000);
+            },
+            error: function(xhr, errmsg, err) {
+                // Handle error if needed
+                console.log(xhr.status + ": " + xhr.responseText); // Log error message
+            }
+        })
+    })
+
     // Function to get CSRF token from cookies
     function getCookie(name) {
         var cookieValue = null;

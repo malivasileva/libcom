@@ -22,8 +22,8 @@ class Status(models.Model):
 
 class User2Book(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    isbn = models.CharField(max_length=13)  # ISBN книги
+    google_id = models.CharField(max_length=13)  # ISBN книги
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.user.username} - {self.isbn} - {self.status}"
+        return f"{self.user.username} - {self.google_id} - {self.status}"

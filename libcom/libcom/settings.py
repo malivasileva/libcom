@@ -140,3 +140,4 @@ LOGOUT_REDIRECT_URL = 'home'
 
 OPEN_LIBRARY_API_URL = 'https://openlibrary.org'
 GOOGLE_BOOKS_SEARCH = 'https://www.googleapis.com/books/v1/volumes?'
+GOOGLE_BOOKS_VOLUME = 'https://www.googleapis.com/books/v1/volumes'

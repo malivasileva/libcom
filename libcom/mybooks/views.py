@@ -13,6 +13,7 @@ from .models import User2Book
 from .models import Status
 from .forms import RatingForm
 
+default_cover = '/static/images/no-cover.png'
 def index(request):
     books = User2Book.objects.filter(user=request.user)
     read_list = []
@@ -20,21 +21,17 @@ def index(request):
     complete_list = []
 
     for book in books:
-        response = requests.get(f'{settings.OPEN_LIBRARY_API_URL}/isbn/{book.isbn}.json')
+        response = requests.get(f'{settings.GOOGLE_BOOKS_VOLUME}/{book.google_id}')
         jsonResponse = response.json()
         book_info = {'title': '', 'cover': ''}
-        book_info['title'] = jsonResponse.get('title', '')
-        url = f'https://covers.openlibrary.org/b/isbn/{book.isbn}-M.jpg'
+        volumeInfo = jsonResponse.get('volumeInfo')
+        book_info['title'] = volumeInfo.get('title', 'unknown')
+        url = volumeInfo.get('imageLinks', default_cover)
+        if (url != default_cover):
+            url = url.get('thumbnail', default_cover)
         try:
-            response = requests.get(url)
-            img = Image.open(BytesIO(response.content))
-            # Обработка изображения
-            (width, height) = img.size
-            book_info['isbn'] = book.isbn
-            if (width <= 1 or height <= 1):
-                book_info['cover'] = '/static/images/no-cover.png'
-            else:
-                book_info['cover'] = url
+            book_info['cover'] = url
+            book_info['isbn'] = book.google_id
 
             if (book.status == Status.objects.get(status='Прочитано')):
                 complete_list.append(book_info)
@@ -46,12 +43,7 @@ def index(request):
                 want_list.append(book_info)
 
         except UnidentifiedImageError:
-            print(f'{book.isbn} Не удалось идентифицировать изображение.')
-    #         #img = Image.open(requests.get(url, stream=True).raw)
-
-    #     # else:
-    #     #     book_info['cover'] = '/static/images/no-cover.png'
-    #     #     book_info['isbn'] = ''
+            print(f'{book.google_id} Не удалось идентифицировать изображение.')
 
     return render(request, 'mybooks/index.html', {'complete': complete_list, 'read': read_list, 'want': want_list})
 def statistic(request):
@@ -61,44 +53,51 @@ def statistic(request):
     authorName = ''
 
     for book in books:
-        response = requests.get(f'{settings.OPEN_LIBRARY_API_URL}/isbn/{book.isbn}.json')
+        response = requests.get(f'{settings.GOOGLE_BOOKS_VOLUME}/{book.google_id}')
 
         if not response.ok:
             continue
 
-        jsonResponse = response.json()
+        jsonResponse = response.json().get('volumeInfo')
         book_info = {'title': '', 'cover': '', 'number_of_pages': '', 'sum_rating': '', 'authors': ''}
         book_info['title'] = jsonResponse.get('title', '')
-        book_info['number_of_pages'] = jsonResponse.get('number_of_pages', '')
+        book_info['number_of_pages'] = jsonResponse.get('pageCount', '')
+        book_info['authors'] = jsonResponse.get('authors')[0]
 
-        authors = jsonResponse.get('authors', '')
-        if (authors):
-            author = requests.get(f"{settings.OPEN_LIBRARY_API_URL}{authors[0]['key']}.json")
-            jsonAuthor = author.json()
-            authorName = jsonAuthor.get('name', '')
-        book_info['author_name'] = authorName
+        # authors = jsonResponse.get('authors', '')
+        # if (authors):
+        #     author = requests.get(f"{settings.OPEN_LIBRARY_API_URL}{authors[0]['key']}.json")
+        #     jsonAuthor = author.json()
+        #     authorName = jsonAuthor.get('name', '')
 
-        rating = Rating.objects.filter(user=request.user, isbn=book.isbn).first()
+        rating = Rating.objects.filter(user=request.user, isbn=book.google_id).first()
         if rating:
             sumRating = rating.general + rating.style + rating.characters + rating.plot
         book_info['sum_rating'] = sumRating
 
-        url = f'https://covers.openlibrary.org/b/isbn/{book.isbn}-M.jpg'
-        try:
-            response = requests.get(url)
-            img = Image.open(BytesIO(response.content))
-            # Обработка изображения
-            (width, height) = img.size
-            book_info['isbn'] = book.isbn
-            if (width <= 1 or height <= 1):
-                book_info['cover'] = '/static/images/no-cover.png'
-            else:
-                book_info['cover'] = url
+        url = jsonResponse.get('imageLinks', default_cover)
+        if (url != default_cover):
+            url = url.get('thumbnail', default_cover)
 
-            complete_list.append(book_info)
+        #book_info['isbn'] = book.google_id
+        book_info['cover'] = url
 
-        except UnidentifiedImageError:
-            print(f'{book.isbn} Не удалось идентифицировать изображение.')
+        # url = f'https://covers.openlibrary.org/b/isbn/{book.google_id}-M.jpg'
+        # try:
+        #     response = requests.get(url)
+        #     img = Image.open(BytesIO(response.content))
+        #     # Обработка изображения
+        #     (width, height) = img.size
+        #
+        #     if (width <= 1 or height <= 1):
+        #         book_info['cover'] = '/static/images/no-cover.png'
+        #     else:
+        #
+
+        complete_list.append(book_info)
+
+        # except UnidentifiedImageError:
+        #     print(f'{book.google_id} Не удалось идентифицировать изображение.')
 
     def convert_to_int(s):
         try:
@@ -115,7 +114,7 @@ def statistic(request):
     author_count = {}
 
     for book in complete_list:
-        author_name = book['author_name']
+        author_name = book['authors']
         if author_name in author_count:
             author_count[author_name] += 1
         else:
@@ -154,7 +153,7 @@ def save_rating(request, isbn):
         # Находим или создаем запись о книге пользователя
         user_book, created = User2Book.objects.get_or_create(
             user=request.user,
-            isbn=isbn,
+            google_id=isbn,
             defaults={'status': Status.objects.get(status='Прочитано')}
         )
 
@@ -168,7 +167,7 @@ def save_read(request, isbn):
         # Находим или создаем запись о книге пользователя
         user_book, created = User2Book.objects.get_or_create(
             user=request.user,
-            isbn=isbn,
+            google_id=isbn,
             defaults={'status': Status.objects.get(status='Читаю')}
         )
 
@@ -182,7 +181,7 @@ def save_want(request, isbn):
         # Находим или создаем запись о книге пользователя
         user_book, created = User2Book.objects.get_or_create(
             user=request.user,
-            isbn=isbn,
+            google_id=isbn,
             defaults={'status': Status.objects.get(status='Хочу прочитать')}
         )
 

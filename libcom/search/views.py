@@ -9,52 +9,31 @@ from PIL import Image, UnidentifiedImageError
 def search_results_view(request, query):
     # Communicate with the Open Library API
     #response = requests.get(f'{settings.OPEN_LIBRARY_API_URL}/search.json?q={query}')
-    response = requests.get(f'{settings.GOOGLE_BOOKS_SEARCH}q={query}')
-    docs = response.json().get('items', [])
-    docs = docs[:30]
-    #log = docs[0].get('volumeInfo').get('imageLinks')
+    default_cover = '/static/images/no-cover.png'
     log = []
+    response = requests.get(f'{settings.GOOGLE_BOOKS_SEARCH}q={query}')
+    items = response.json().get('items', [])
+    items = items[:30]
     books_info = []
 
-    for doc in docs:
-        volumeInfo = doc.get('volumeInfo')
+    for item in items:
+        volumeInfo = item.get('volumeInfo')
         title = volumeInfo.get('title')
         authors = volumeInfo.get('authors')
-        cover = volumeInfo.get('imageLinks').get('thumbnail', '/static/images/no-cover.png')
-        isbn = volumeInfo.get('industryIdentifiers')[0].get('identifier')
-        #log.append(isbn)
+        cover = volumeInfo.get('imageLinks', default_cover)
+        if (cover != default_cover):
+            cover = cover.get('thumbnail', default_cover)
+        log.append(cover)
+        id = item.get('id', '0')
+        #isbn = volumeInfo.get('industryIdentifiers')[0].get('identifier')
         book_info = {'title': '', 'authors': [], 'cover': '', 'isbn': ''}
         book_info['authors'] = authors
         book_info['title'] = title
         book_info['cover'] = cover
-        book_info['isbn'] = isbn
+        book_info['isbn'] = id
         books_info.append(book_info)
 
     return render(request, 'search/index.html', {'results': books_info})
-
-        # if isbn:
-        #     url = f'https://covers.openlibrary.org/b/isbn/{isbn[0]}-M.jpg'
-        #
-        #     try:
-        #         response = requests.get(url)
-        #         img = Image.open(BytesIO(response.content))
-        #         # Обработка изображения
-        #         (width, height) = img.size
-        #         book_info['isbn'] = isbn[0]
-        #         if (width <= 1 or height <= 1):
-        #             book_info['cover'] = '/static/images/no-cover.png'
-        #         else:
-        #             book_info['cover'] = url
-        #         books_info.append(book_info)
-        #
-        #     except UnidentifiedImageError:
-        #         print(f'{isbn[0]} Не удалось идентифицировать изображение.')
-
-        #img = Image.open(requests.get(url, stream=True).raw)
-
-        # else:
-        #     book_info['cover'] = '/static/images/no-cover.png'
-        #     book_info['isbn'] = ''
 
 def index(request):
     return render(request, 'search/index.html')
