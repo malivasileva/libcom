@@ -88,7 +88,7 @@ DATABASES = {
     }
 }
 
-database_url = os.environ.get("DATABASE_URL","postgres://libcomdb_user:0gnQqAhS9v5roeidSN4sFRMG4Z4354Lf@dpg-cnqofhi1hbls73drvvlg-a.frankfurt-postgres.render.com/libcomdb")
+database_url = os.environ.get("DATABASE_URL","postgresql://libcomdb_user:n41128WpiXQEUpLLQU1Se3vzR1p2tyvi@dpg-cugcs5dsvqrc738es04g-a.frankfurt-postgres.render.com/libcomdb_k9ns")
 DATABASES["default"] = dj_database_url.parse(database_url)
 
 # Password validation
