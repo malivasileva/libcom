@@ -2,15 +2,18 @@
 
 {% block title %} Libcommend {% endblock %}
 
-
-
 {% block content %}
 
     {% for message in messages %}
     <small class="form-text text-danger">{{ message }}</small>
     {% endfor %}
-    <div class="tab-pane fade" id="signup-tab-pane" role="tabpanel" aria-labelledby="signup-tab">
+    <div class="margin-20px">
         <form method="POST" action="{% url 'users:signup' %}">
+
+            {% for f in signup_form %}
+            {{ f.id_for_label }}
+            {% endfor %}
+
             {% csrf_token %}
             <br>
             <input type="hidden" name="next" value="{{ next }}" />

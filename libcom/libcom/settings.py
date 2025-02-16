@@ -81,15 +81,16 @@ WSGI_APPLICATION = 'libcom.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
-database_url = os.environ.get("DATABASE_URL","postgresql://libcomdb_user:n41128WpiXQEUpLLQU1Se3vzR1p2tyvi@dpg-cugcs5dsvqrc738es04g-a.frankfurt-postgres.render.com/libcomdb_k9ns")
-DATABASES["default"] = dj_database_url.parse(database_url)
+
+database_url = os.environ.get(
+    "DATABASE_URL",
+    "postgresql://libcomdb_user:n41128WpiXQEUpLLQU1Se3vzR1p2tyvi@dpg-cugcs5dsvqrc738es04g-a.frankfurt-postgres.render.com/libcomdb_k9ns"
+)
+
+DATABASES = {
+    'default': dj_database_url.parse(database_url)
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
