@@ -4,54 +4,12 @@
 {% block content %}
 
 <main class="statistic-main">
-    <div class="d-flex align-items-start justify-content-between">
-      <div class="statistic-title">Показать отчёт пользователя за</div>
-      <div class="d-flex align-items-start">
-        <div class="d-flex flex-column align-items-center">
-          <div class="input-date">
-            <input id="datepicker" width="276" />
-            <img src="/static/images/Calendar.svg" alt="Calendar" />
-          </div>
-
-          <div class="d-flex gap-3 date-presets">
-            <a href="#">неделю</a>
-            <a href="#">месяц</a>
-            <a href="#">год</a>
-          </div>
-        </div>
-
-        <div class="dash-picker">-</div>
-        <div class="input-date">
-          <input id="datepickerTo" width="276" />
-          <img src="/static/images/Calendar.svg" alt="Calendar" />
-        </div>
-      </div>
-      <div class="statistic-btn">Показать</div>
-    </div>
 
     <div class="multiple-card-slider">
       <div class="d-flex justify-content-between">
         <div class="d-flex align-items-center gap-3">
           <div class="books-title">Прочитано</div>
           <a class="dot-n">{{ count_books }}</a>
-        </div>
-
-        <div class="dropdown">
-          <button
-            class="btn dropdown-toggle user-btn"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Сортировать
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </li>
-          </ul>
         </div>
       </div>
 
@@ -96,7 +54,6 @@
 
     <div class="d-flex align-items-center gap-3">
       <div class="books-title">Статистика</div>
-      <a class="print-btn">Печать</a>
     </div>
 
     <div class="d-flex gap-5 bottom-stats">

@@ -3,5 +3,78 @@
 {% block title %} Libcommend {% endblock %}
 
 {% block content %}
-    <p>about page</p>
+<div class="container">
+
+        <div class="section">
+            <h2>Libcommend</h2>
+            <p>Этот проект является курсовой работой Васильевой Марии, выполненной в рамках обучения на курсе веб-разработки. Основной целью было создание веб-приложения, которое осуществляет поиск книг с помощью API Google Books.</p>
+        </div>
+
+        <div class="section">
+            <h2>О проекте</h2>
+            <p>Проект реализован с использованием Python и фреймворка Django. Он предоставляет удобный интерфейс для поиска книг, используя мощное API Google Books. Пользователи могут вводить запросы, а система автоматически показывает результаты, предоставляя информацию о книгах, включая название, автора и описание.</p>
+        </div>
+
+        <div class="section">
+            <h2>Технологии</h2>
+            <p>Для разработки проекта были использованы следующие технологии:</p>
+            <ul>
+                <li>Python</li>
+                <li>Django</li>
+                <li>API Google Books</li>
+                <li>HTML, CSS, JavaScript</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Исходный код</h2>
+            <p>Исходный код проекта доступен на <a href="https://github.com/malivasileva/libcom" class="link">GitHub</a>.</p>
+        </div>
+    </div>
 {% endblock %}
+
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            color: #444;
+            font-size: 1.5em;
+        }
+        p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .link {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .highlight {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>

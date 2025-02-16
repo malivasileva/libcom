@@ -68,7 +68,11 @@
   <div class="multiple-card-slider">
     <div class="d-flex align-items-center gap-4">
       <div class="books-title">Прочитанное</div>
-      <a href="statistic.html" class="full-statistic">Полная статистика</a>
+      {% if complete %}
+        <a href="statistic.html" class="full-statistic">Полная статистика</a>
+      {% else %}
+        <span class="full-statistic disabled">Полная статистика</span>
+      {% endif %}
     </div>
     <div id="carouselExampleControls3" class="carousel" data-bs-ride="false">
       <div class="carousel-inner gap-2">
@@ -101,3 +105,4 @@
 </main>
 
 {% endblock %}
+

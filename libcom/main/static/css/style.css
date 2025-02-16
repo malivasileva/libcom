@@ -241,6 +241,15 @@
   color: black;
 }
 
+.full-statistic.disabled {
+    color: gray;
+    opacity: 0.5;
+    text-decoration: none;
+    cursor: default;
+    pointer-events: none;
+}
+
+
 .alert-complete {
   display: none;
   max-width: 400px;
@@ -351,18 +360,6 @@
   color: black;
 }
 
-.print-btn {
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 50px;
-  padding-right: 50px;
-  font-size: 30px;
-  background-color: var(--book-mega-soft-purple);
-  border-radius: 50px;
-  text-decoration: none;
-  color: black;
-}
-
 .bottom-stats {
   font-size: 36px;
 }
@@ -370,3 +367,15 @@
 .apexcharts-legend-text {
   font-size: 36px !important;
 }
+
+.ui-datepicker {
+  background-color: #f8f9fa;  /* Цвет фона */
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.ui-datepicker td {
+  padding: 10px;
+}
+
+
