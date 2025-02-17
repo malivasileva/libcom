@@ -6,7 +6,7 @@
             {{ user.first_name }}
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Настройки</a>
+            <a class="dropdown-item" href="{% url 'users:settings' %}">Настройки</a>
             <div class="dropdown-divider"></div>
             <form action="{% url 'users:logout' %}" method="post" class="dropdown-item p-0 m-0">
                 {% csrf_token %}

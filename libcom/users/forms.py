@@ -32,3 +32,14 @@ class SignupForm(UserCreationForm):
             'password1': 'Пароль',
             'password2': 'Повторите пароль'
         }
+
+
+
+class UserUpdateForm(forms.ModelForm):
+    # Добавляем поля для имени и фамилии
+    first_name = forms.CharField(max_length=30, required=True)
+    last_name = forms.CharField(max_length=30, required=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ['first_name', 'last_name']
