@@ -58,11 +58,13 @@ def statistic(request):
         if not response.ok:
             continue
 
+        print(f'{settings.GOOGLE_BOOKS_VOLUME}/{book.google_id}')
+
         jsonResponse = response.json().get('volumeInfo')
         book_info = {'title': '', 'cover': '', 'number_of_pages': '', 'sum_rating': '', 'authors': ''}
         book_info['title'] = jsonResponse.get('title', '')
         book_info['number_of_pages'] = jsonResponse.get('pageCount', '')
-        book_info['authors'] = jsonResponse.get('authors')[0]
+        book_info['authors'] = jsonResponse.get('authors', [''])[0]
 
         # authors = jsonResponse.get('authors', '')
         # if (authors):
