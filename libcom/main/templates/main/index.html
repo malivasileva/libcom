@@ -13,21 +13,21 @@
 {% endblock %}
 
 {% block content %}
-    <main class="book-main">
-        <div>
-          <h1>Пора почитать</h1>
-          <p class="lead">Ищите и добавляйте книги в свой read-list</p>
+    <main class="book-main h-100 flex-grow-1 d-flex justify-content-center align-items-center">
+        <div class="book-container">
+            <h1 class="book-title">Пора почитать</h1>
+            <p class="book-subtitle">Ищите и добавляйте книги в свой read-list</p>
             <div class="input-group book-search">
-                <form action="{% url 'search' %}" method="GET" class="input-group d-flex align-items-center">
-                    <input type="text" name="query" class="form-control" placeholder="Введите ваш запрос">
+                <form action="{% url 'search' %}" method="GET" class="input-group">
+                    <input type="text" name="query" class="form-control book-input" placeholder="Введите ваш запрос">
                     <div class="input-group-append">
-                        <button type="submit" class="btn user-btn">
+                        <button type="submit" class="btn user-btn book-search-btn">
                             <img src="{% static 'images/Search.svg' %}" alt="Search" width="24" height="24">
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-      </main>
+    </main>
 <footer class="mt-auto text-white-50"></footer>
 {% endblock %}

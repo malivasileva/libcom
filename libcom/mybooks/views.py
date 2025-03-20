@@ -1,4 +1,5 @@
 import requests
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
@@ -7,6 +8,7 @@ from django.conf import settings
 
 from io import BytesIO
 from PIL import Image, UnidentifiedImageError
+from django.urls import reverse_lazy
 
 from .models import Rating
 from .models import User2Book
@@ -14,6 +16,7 @@ from .models import Status
 from .forms import RatingForm
 
 default_cover = '/static/images/no-cover.png'
+@login_required(login_url=reverse_lazy('users:login'))
 def index(request):
     books = User2Book.objects.filter(user=request.user)
     read_list = []

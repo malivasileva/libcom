@@ -28,6 +28,8 @@
   max-width: 600px;
   padding-left: 15px;
   padding-right: 15px;
+  display: flex;
+  justify-content: center;
 }
 
 .book-search input {
@@ -40,13 +42,25 @@
 .book-search .input-group-append {
   margin-left: 0 !important;
   margin-right: 15px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .book-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - var(--header-height));
+    background: linear-gradient(to top, #8459ff, white 75%);
+    color: black;
+    text-align: center;
 }
+
+.block-content.py-2 {
+    padding-top: .5rem !important;
+}
+
 
 .search-main {
   display: flex;
@@ -378,4 +392,57 @@
   padding: 10px;
 }
 
+.book-container {
+    background-color: white;  /* Белый фон */
+    border-radius: 10px;  /* Закругленные углы */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* Тень для создания эффекта карточки */
+    padding: 20px;  /* Внутренние отступы */
+    max-width: 600px;  /* Ограничим ширину */
+    width: 100%;  /* Для мобильных устройств */
+}
+
+
+.book-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.book-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
+
+.book-input {
+    border-radius: 25px 0 0 25px; /* Закругленные края слева */
+    padding: 12px 15px;
+    font-size: 1rem;
+}
+
+.book-search-btn {
+    border-radius: 25px 25px 25px 25px; /* Закругленные края справа */
+    padding: 10px 15px;
+    background-color: #ffffff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-search-btn img {
+    filter: invert(45%) sepia(88%) saturate(484%) hue-rotate(204deg); /* Улучшенный цвет иконки */
+}
+
+.cover-container {
+    min-height: 100vh; /* Растягиваем на высоту экрана */
+    display: flex;
+    flex-direction: column;
+}
+
+.book-search form.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+}
 

@@ -11,7 +11,7 @@ def search_results_view(request, query):
     #response = requests.get(f'{settings.OPEN_LIBRARY_API_URL}/search.json?q={query}')
     default_cover = '/static/images/no-cover.png'
     log = []
-    response = requests.get(f'{settings.GOOGLE_BOOKS_SEARCH}q={query}?key={settings.GOOGLE_API_KEY}')
+    response = requests.get(f'{settings.GOOGLE_BOOKS_SEARCH}q={query}')
     items = response.json().get('items', [])
     items = items[:30]
     books_info = []

@@ -35,6 +35,9 @@
             <input type="hidden" name="action" value="login">
             <button type="submit" class="btn user-btn w-100">Регистрация</button>
         </form>
+        <div class="text-center mt-3">
+            <small>Уже есть аккаунт? <a href="{% url 'users:login' %}" class="text-primary">Войти</a></small>
+        </div>
     </div>
 </div>
 
