@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'libcom.wsgi.application'
 
 database_url = os.environ.get(
     "DATABASE_URL",
-    "postgresql://libcomdb_user:n41128WpiXQEUpLLQU1Se3vzR1p2tyvi@dpg-cugcs5dsvqrc738es04g-a.frankfurt-postgres.render.com/libcomdb_k9ns"
+    "postgresql://libcomdb_user:rZJFpQzsbPPCrUXRG6J6UvRHNzI9EgEU@dpg-cve46kin91rc73be3n0g-a/libcomdb_pk8o"
 )
 
 DATABASES = {

@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 
 
 def index(request):
-
-
     return render(request, 'main/index.html')
 
 def search_view(request):
